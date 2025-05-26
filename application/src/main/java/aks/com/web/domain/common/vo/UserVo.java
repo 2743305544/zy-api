@@ -17,10 +17,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class UserVo {
-    /**
-     *
-     */
-    @TableId(type = IdType.AUTO)
     private Long id;
     /**
      *

@@ -6,6 +6,7 @@ import aks.com.sdk.resp.RespEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -33,8 +34,10 @@ public class ExceptionAspectj {
                     distinct().
                     toList().
                     toString());
-        }else if (exception instanceof NotLoginException loginException) {
+        } else if (exception instanceof NotLoginException loginException) {
             return RespEntity.fail(loginException.getMessage());
+        } else if (exception instanceof HttpRequestMethodNotSupportedException methodException) {
+            return RespEntity.fail(methodException.getMessage());
         }
         return RespEntity.fail("系统异常,请稍后再试");
     }

@@ -17,10 +17,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserReq {
-    /**
-     *
-     */
-    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
@@ -47,12 +43,12 @@ public class UserReq {
      *
      */
     private String phone;
-    
+
     /**
      * 验证码唯一标识
      */
     private String captchaKey;
-    
+
     /**
      * 验证码值
      */

@@ -22,11 +22,12 @@ public class LoginController {
 
 
     @PostMapping("/login")
-    public RespEntity<UserVo> login(@RequestParam String username, @RequestParam String password) {
+    public RespEntity<UserVo> login(@RequestParam(value = "username") String username,
+                                    @RequestParam(value = "password") String password) {
         return RespEntity.success(usersService.login(username, password));
     }
 
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public RespEntity<Boolean> logout() {
         StpUtil.checkLogin();
         StpUtil.logout();
