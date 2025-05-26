@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.ApiRouteMappingsMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.ApiRouteMappings">
+            <id property="id" column="id" />
+            <result property="apiId" column="api_id" />
+            <result property="endpointId" column="endpoint_id" />
+            <result property="targetServiceId" column="target_service_id" />
+            <result property="targetPath" column="target_path" />
+            <result property="requestMethod" column="request_method" />
+            <result property="targetRequestMethod" column="target_request_method" />
+            <result property="timeoutMs" column="timeout_ms" />
+            <result property="isActive" column="is_active" />
+            <result property="isDeleted" column="is_deleted" />
+            <result property="createdAt" column="created_at" />
+            <result property="updatedAt" column="updated_at" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,api_id,endpoint_id,target_service_id,target_path,request_method,
+        target_request_method,timeout_ms,is_active,is_deleted,created_at,
+        updated_at
+    </sql>
+</mapper>

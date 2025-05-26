@@ -35,7 +35,7 @@ mybatis-plus:
     db-config:
       #全局主键使用雪花算法生成id
       id-type: auto
-      logic-delete-field: deleteFlag
+      logic-delete-field: is_deleted
       logic-delete-value: 1
       logic-not-delete-value: 0
   configuration:
