@@ -1,5 +1,7 @@
 package generator.service;
 
+import aks.com.web.domain.common.req.UserReq;
+import aks.com.web.domain.common.vo.UserVo;
 import generator.domain.Users;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -10,4 +12,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface UsersService extends IService<Users> {
 
+    UserVo login(String username, String password);
+
+    Boolean register(UserReq userReq);
 }

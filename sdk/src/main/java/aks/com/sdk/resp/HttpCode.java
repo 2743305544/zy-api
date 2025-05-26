@@ -11,7 +11,9 @@ public enum HttpCode {
     SUCCESS(200, "success"),
     UNAUTHORIZED(401, "unauthorized"),
     FORBIDDEN(403, "forbidden"),
-    INTERNAL_SERVER_ERROR(500, "internal server error");
+    INTERNAL_SERVER_ERROR(500, "internal server error"),
+    USERNAME_PASSWORD_ERROR(1001, "username or password error"),
+    CAPTCHA_ERROR(1002, "验证码错误或已过期");
 
     private final String reasonPhrase;
     private final int code;

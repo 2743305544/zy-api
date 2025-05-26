@@ -48,5 +48,9 @@ public class ServiceException extends RuntimeException{
     public ServiceException(String message, int code) {
         this(null,null,code,message);
     }
+
+    public ServiceException(HttpCode httpCode) {
+        this(null,null,httpCode.getCode(),httpCode.getReasonPhrase());
+    }
 }
 
