@@ -33,7 +33,7 @@ public class EmailService {
      * @param toEmail 收件人邮箱
      * @param code    验证码
      */
-    @Async
+    @Async("virtualThreadExecutor")
     public void sendVerificationCode(String toEmail, String code) {
         try {
             MimeMessage message = mailSender.createMimeMessage();

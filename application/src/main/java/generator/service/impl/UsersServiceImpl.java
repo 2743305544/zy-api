@@ -72,8 +72,12 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
             throw new ServiceException("邮箱验证码不能为空", HttpCode.CAPTCHA_ERROR.getCode());
         }
         
-        // 验证邮箱验证码
-        captchaUtils.validateCaptchaWithException(userReq.getEmailCaptchaKey(), userReq.getEmailCaptchaCode());
+        // 验证邮箱验证码，同时确保验证码与提交的邮箱匹配
+        captchaUtils.validateEmailCaptchaWithException(
+            userReq.getEmailCaptchaKey(), 
+            userReq.getEmailCaptchaCode(),
+            userReq.getEmail()
+        );
 
         // 检查用户名是否已存在
         Users existingUser = usersMapper.selectOne(new LambdaQueryWrapper<Users>()

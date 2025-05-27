@@ -1,5 +1,7 @@
 package aks.com.web.controller;
 
+import aks.com.sdk.exception.ServiceException;
+import aks.com.sdk.resp.HttpCode;
 import aks.com.sdk.resp.RespEntity;
 import aks.com.web.domain.common.req.UserReq;
 import aks.com.web.domain.common.vo.UserVo;
@@ -8,6 +10,7 @@ import generator.service.UsersService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -41,7 +44,7 @@ public class LoginController {
 
     @PostMapping("/register")
     @Operation(summary = "用户注册", description = "注册新用户，需要图形验证码和邮箱验证码")
-    public RespEntity<Boolean> register(@RequestBody UserReq userReq) {
+    public RespEntity<Boolean> register(@Valid @RequestBody UserReq userReq) {
         return RespEntity.success(usersService.register(userReq));
     }
 }

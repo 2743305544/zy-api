@@ -13,6 +13,7 @@ public enum HttpCode {
     FORBIDDEN(403, "forbidden"),
     INTERNAL_SERVER_ERROR(500, "internal server error"),
     USERNAME_PASSWORD_ERROR(1001, "username or password error"),
+    USERNAME_PASSWORD_EMPTY(1001, "username is empty"),
     CAPTCHA_ERROR(1002, "验证码错误或已过期"),
     EMAIL_EMPTY(1003,"邮箱不能为空")
     ,EMAIL_ERROR(1003,"邮箱格式错误");

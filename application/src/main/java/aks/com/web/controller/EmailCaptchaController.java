@@ -54,10 +54,8 @@ public class EmailCaptchaController {
         String captchaValue = generateNumericCaptcha(6);
         String captchaKey = UUID.randomUUID().toString();
 
-        // 将验证码存入Caffeine缓存，使用相同的缓存机制
-        captchaCache.put(captchaKey, captchaValue);
+        captchaCache.put(captchaKey, email + ":" + captchaValue);
 
-        // 发送邮件
         emailService.sendVerificationCode(email, captchaValue);
 
         return RespEntity.success(captchaKey);
