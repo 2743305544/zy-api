@@ -53,7 +53,7 @@ public class Users {
     private Integer status;
 
     /**
-     * admin, user, developer
+     * admin, user
      */
     private String role;
 

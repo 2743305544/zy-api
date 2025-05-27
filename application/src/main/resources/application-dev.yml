@@ -48,3 +48,17 @@ spring:
           max-idle: 10
           # 连接池中的最小空闲连接
           min-idle: 0
+
+# 邮件服务配置（开发环境）
+mail:
+  # 邮件服务器地址，以QQ邮箱为例
+  host: smtp.qq.com
+  # 邮件服务器端口
+  port: 465
+  # 发件人邮箱
+  username: your_email@qq.com
+  # 邮箱授权码，非邮箱密码
+  password: your_authorization_code
+  # 是否启用SSL
+  ssl:
+    enable: true

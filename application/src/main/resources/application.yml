@@ -26,6 +26,28 @@ spring:
       file-size-threshold: 0
       #单个文件上传的最大值
       max-file-size: 30MB
+  mail:
+    # 邮件服务器地址，在具体环境配置中设置
+    host: ${mail.host}
+    # 邮件服务器端口，在具体环境配置中设置
+    port: ${mail.port}
+    # 发件人邮箱，在具体环境配置中设置
+    username: ${mail.username}
+    # 邮箱密码或授权码，在具体环境配置中设置
+    password: ${mail.password}
+    # 邮件昵称
+    nickname: API平台
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            enable: ${mail.ssl.enable}
+    # 默认编码
+    default-encoding: UTF-8
 #===========================================================================
 #==========================mybatis配置=======================================
 #============================================================================

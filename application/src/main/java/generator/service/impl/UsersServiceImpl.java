@@ -5,6 +5,7 @@ import aks.com.sdk.resp.HttpCode;
 import aks.com.sdk.util.md5.MD5Utils;
 import aks.com.web.domain.common.req.UserReq;
 import aks.com.web.domain.common.vo.UserVo;
+import aks.com.web.enums.RoleEnum;
 import aks.com.web.enums.StatusEnum;
 import aks.com.web.util.CaptchaUtils;
 import cn.dev33.satoken.stp.StpUtil;
@@ -58,13 +59,21 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
 
     @Override
     public Boolean register(UserReq userReq) {
-        // 验证码认证
+        // 图形验证码认证
         if (!StringUtils.hasText(userReq.getCaptchaKey()) || !StringUtils.hasText(userReq.getCaptchaCode())) {
             throw new ServiceException(HttpCode.CAPTCHA_ERROR);
         }
 
-        // 验证验证码
+        // 验证图形验证码
         captchaUtils.validateCaptchaWithException(userReq.getCaptchaKey(), userReq.getCaptchaCode());
+        
+        // 邮箱验证码认证
+        if (!StringUtils.hasText(userReq.getEmailCaptchaKey()) || !StringUtils.hasText(userReq.getEmailCaptchaCode())) {
+            throw new ServiceException("邮箱验证码不能为空", HttpCode.CAPTCHA_ERROR.getCode());
+        }
+        
+        // 验证邮箱验证码
+        captchaUtils.validateCaptchaWithException(userReq.getEmailCaptchaKey(), userReq.getEmailCaptchaCode());
 
         // 检查用户名是否已存在
         Users existingUser = usersMapper.selectOne(new LambdaQueryWrapper<Users>()
@@ -73,6 +82,15 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
 
         if (existingUser != null) {
             throw new ServiceException("用户名已存在", HttpCode.INTERNAL_SERVER_ERROR.getCode());
+        }
+        
+        // 检查邮箱是否已存在
+        Users existingEmail = usersMapper.selectOne(new LambdaQueryWrapper<Users>()
+                .eq(Users::getEmail, userReq.getEmail())
+        );
+        
+        if (existingEmail != null) {
+            throw new ServiceException("邮箱已被注册", HttpCode.INTERNAL_SERVER_ERROR.getCode());
         }
 
         // 密码加密
@@ -91,8 +109,8 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
         user.setEmail(userReq.getEmail());
         user.setFullName(userReq.getFullName());
         user.setPhone(userReq.getPhone());
-        user.setRole("user");
-        user.setStatus(1);
+        user.setRole(RoleEnum.USER.getRole());
+        user.setStatus(StatusEnum.NORMAL.getCode());
         user.setIsDeleted(0);
         user.setCreatedAt(new java.util.Date());
         user.setUpdatedAt(new java.util.Date());

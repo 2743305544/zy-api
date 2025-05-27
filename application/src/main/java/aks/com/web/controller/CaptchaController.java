@@ -1,6 +1,7 @@
 package aks.com.web.controller;
 
 import aks.com.sdk.resp.RespEntity;
+import aks.com.web.annotation.RateLimit;
 import aks.com.web.cache.CaptchaCache;
 import aks.com.web.domain.common.vo.CaptchaVo;
 import com.wf.captcha.SpecCaptcha;
@@ -29,6 +30,7 @@ public class CaptchaController {
 
     @GetMapping("/generate")
     @Operation(summary = "生成验证码", description = "生成图形验证码，返回验证码图片和唯一标识")
+    @RateLimit(key = "#ip", period = 60, count = 5, message = "获取验证码过于频繁，请1分钟后再试")
     public RespEntity<CaptchaVo> generateCaptcha() {
         SpecCaptcha specCaptcha = new SpecCaptcha(130, 48, 5);
         specCaptcha.setCharType(Captcha.TYPE_DEFAULT);
