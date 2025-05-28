@@ -4,13 +4,15 @@ import aks.com.sdk.exception.ServiceException;
 import aks.com.sdk.resp.HttpCode;
 import aks.com.sdk.util.md5.MD5Utils;
 import aks.com.web.domain.common.req.UserReq;
+import aks.com.web.domain.common.req.UserUpdateReq;
+import aks.com.web.domain.common.req.UpdateEmailReq;
+import aks.com.web.domain.common.req.ResetPasswordReq;
 import aks.com.web.domain.common.vo.UserVo;
 import aks.com.web.enums.RoleEnum;
 import aks.com.web.enums.StatusEnum;
 import aks.com.web.util.CaptchaUtils;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import generator.domain.Users;
 import generator.service.UsersService;
@@ -59,22 +61,16 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
 
     @Override
     public Boolean register(UserReq userReq) {
-        // 图形验证码认证
         if (!StringUtils.hasText(userReq.getCaptchaKey()) || !StringUtils.hasText(userReq.getCaptchaCode())) {
             throw new ServiceException(HttpCode.CAPTCHA_ERROR);
         }
 
         // 验证图形验证码
         captchaUtils.validateCaptchaWithException(userReq.getCaptchaKey(), userReq.getCaptchaCode());
-        
-        // 邮箱验证码认证
-        if (!StringUtils.hasText(userReq.getEmailCaptchaKey()) || !StringUtils.hasText(userReq.getEmailCaptchaCode())) {
-            throw new ServiceException("邮箱验证码不能为空", HttpCode.CAPTCHA_ERROR.getCode());
-        }
-        
+
         // 验证邮箱验证码，同时确保验证码与提交的邮箱匹配
         captchaUtils.validateEmailCaptchaWithException(
-            userReq.getEmailCaptchaKey(), 
+            userReq.getEmailCaptchaKey(),
             userReq.getEmailCaptchaCode(),
             userReq.getEmail()
         );
@@ -87,12 +83,12 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
         if (existingUser != null) {
             throw new ServiceException("用户名已存在", HttpCode.INTERNAL_SERVER_ERROR.getCode());
         }
-        
+
         // 检查邮箱是否已存在
         Users existingEmail = usersMapper.selectOne(new LambdaQueryWrapper<Users>()
                 .eq(Users::getEmail, userReq.getEmail())
         );
-        
+
         if (existingEmail != null) {
             throw new ServiceException("邮箱已被注册", HttpCode.INTERNAL_SERVER_ERROR.getCode());
         }
@@ -103,9 +99,79 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
         return createNewUser(userReq);
     }
 
+    @Override
+    public UserVo getUser(Long loginId) {
+        Users user = usersMapper.selectById(loginId);
+        return UserVo.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .fullName(user.getFullName())
+                .phone(user.getPhone())
+                .role(user.getRole())
+                .token(StpUtil.getTokenValue())
+                .build();
+    }
 
+    @Override
+    public Boolean update(UserUpdateReq userUpdateReq) {
+        var user = usersMapper.selectById((Long)StpUtil.getLoginId());
+        user.setFullName(userUpdateReq.getFullName());
+        user.setPhone(userUpdateReq.getPhone());
+        user.setUpdatedAt(new java.util.Date());
+        return usersMapper.updateById(user) > 0;
+    }
+
+    @Override
+    public Boolean updateEmail(UpdateEmailReq updateEmailReq, Long userId) {
+        captchaUtils.validateEmailCaptchaWithException(
+            updateEmailReq.getEmailCaptchaKey(),
+            updateEmailReq.getEmailCaptchaCode(),
+            updateEmailReq.getEmail()
+        );
+        Users existingEmail = usersMapper.selectOne(new LambdaQueryWrapper<Users>()
+                .eq(Users::getEmail, updateEmailReq.getEmail())
+                .ne(Users::getId, userId)
+        );
+
+        if (existingEmail != null) {
+            throw new ServiceException("邮箱已被注册", HttpCode.INTERNAL_SERVER_ERROR.getCode());
+        }
+
+        // 更新用户邮箱
+        Users user = new Users();
+        user.setId(userId);
+        user.setEmail(updateEmailReq.getEmail());
+        user.setUpdatedAt(new java.util.Date());
+
+        return usersMapper.updateById(user) > 0;
+    }
+
+    @Override
+    public Boolean resetPassword(ResetPasswordReq resetPasswordReq) {
+        // 验证邮箱验证码，同时确保验证码与提交的邮箱匹配
+        captchaUtils.validateEmailCaptchaWithException(
+            resetPasswordReq.getEmailCaptchaKey(),
+            resetPasswordReq.getEmailCaptchaCode(),
+            resetPasswordReq.getEmail()
+        );
+        Users user = usersMapper.selectOne(new LambdaQueryWrapper<Users>()
+                .eq(Users::getEmail, resetPasswordReq.getEmail())
+                .eq(Users::getStatus, StatusEnum.NORMAL.getCode())
+        );
+
+        if (user == null) {
+            throw new ServiceException("该邮箱未注册", HttpCode.INTERNAL_SERVER_ERROR.getCode());
+        }
+
+        user.setPassword(MD5Utils.encrypt(resetPasswordReq.getNewPassword()));
+        user.setUpdatedAt(new java.util.Date());
+
+        return usersMapper.updateById(user) > 0;
+    }
 
     private boolean createNewUser(UserReq userReq) {
+
         // 创建新用户
         Users user = new Users();
         user.setUsername(userReq.getUsername());

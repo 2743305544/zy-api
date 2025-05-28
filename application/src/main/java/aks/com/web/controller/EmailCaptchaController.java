@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,15 +42,14 @@ public class EmailCaptchaController {
     @RateLimit(key = "#email", period = 60, count = 1, message = "邮箱验证码发送过于频繁，请1分钟后再试")
     public RespEntity<String> sendEmailCaptcha(
             @Parameter(description = "邮箱地址", required = true)
-            @RequestParam(value = "email") String email) {
+            @RequestParam(value = "email") @Email(message = "邮箱格式不正确") @Valid String email) {
 
         if (!StringUtils.hasText(email)) {
             throw new ServiceException(HttpCode.EMAIL_EMPTY);
         }
-
-        if (!emailService.isValidEmail(email)) {
-            throw new ServiceException(HttpCode.EMAIL_ERROR);
-        }
+//        if (!emailService.isValidEmail(email)) {
+//            throw new ServiceException(HttpCode.EMAIL_ERROR);
+//        }
 
         // 生成6位数字验证码
         String captchaValue = generateNumericCaptcha(6);

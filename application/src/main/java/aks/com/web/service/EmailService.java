@@ -44,7 +44,7 @@ public class EmailService {
             helper.setSubject("API平台 - 邮箱验证码");
 
             String content = "<div style='padding:20px;background-color:#f7f7f7;'>"
-                    + "<h2 style='color:#333;'>API平台 - 邮箱验证码</h2>"
+                    + "<h2 style='color:#333;'>知意 API平台 - 邮箱验证码</h2>"
                     + "<p style='font-size:14px;color:#666;'>您好，您正在进行邮箱验证，验证码为：</p>"
                     + "<div style='padding:10px 20px;background-color:#fff;border-radius:5px;margin:15px 0;'>"
                     + "<p style='font-size:24px;font-weight:bold;color:#333;letter-spacing:5px;text-align:center;'>" + code + "</p>"

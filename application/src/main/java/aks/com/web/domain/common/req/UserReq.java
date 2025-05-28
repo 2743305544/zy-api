@@ -48,6 +48,7 @@ public class UserReq {
      *
      */
     @NotNull(message = "手机号不能为空")
+    @Length(min = 11, max = 11, message = "手机号长度为11位")
     private String phone;
 
     /**

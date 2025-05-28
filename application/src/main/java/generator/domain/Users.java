@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 
 /**
  *
+ * @author 34011
  * @TableName users
  */
 @TableName(value ="users")

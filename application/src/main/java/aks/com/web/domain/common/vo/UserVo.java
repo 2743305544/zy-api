@@ -17,6 +17,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class UserVo {
+
+
     private Long id;
     /**
      *
@@ -39,7 +41,7 @@ public class UserVo {
     private String phone;
 
     /**
-     * admin, user, developer
+     * admin, user
      */
     private String role;
 

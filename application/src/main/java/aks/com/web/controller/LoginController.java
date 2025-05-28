@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
-@Tag(name = "用户接口", description = "用户登录、注册相关接口")
+@Tag(name = "登录接口", description = "用户登录、注册相关接口")
 public class LoginController {
 
     @Resource
@@ -44,7 +45,7 @@ public class LoginController {
 
     @PostMapping("/register")
     @Operation(summary = "用户注册", description = "注册新用户，需要图形验证码和邮箱验证码")
-    public RespEntity<Boolean> register(@Valid @RequestBody UserReq userReq) {
+    public RespEntity<Boolean> register(@RequestBody @Valid UserReq userReq) {
         return RespEntity.success(usersService.register(userReq));
     }
 }

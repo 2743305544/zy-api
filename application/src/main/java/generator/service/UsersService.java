@@ -1,6 +1,9 @@
 package generator.service;
 
+import aks.com.web.domain.common.req.ResetPasswordReq;
+import aks.com.web.domain.common.req.UpdateEmailReq;
 import aks.com.web.domain.common.req.UserReq;
+import aks.com.web.domain.common.req.UserUpdateReq;
 import aks.com.web.domain.common.vo.UserVo;
 import generator.domain.Users;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -15,4 +18,12 @@ public interface UsersService extends IService<Users> {
     UserVo login(String username, String password);
 
     Boolean register(UserReq userReq);
+
+    UserVo getUser(Long loginId);
+
+    Boolean update(UserUpdateReq userUpdateReq);
+    
+    Boolean updateEmail(UpdateEmailReq updateEmailReq, Long userId);
+    
+    Boolean resetPassword(ResetPasswordReq resetPasswordReq);
 }
