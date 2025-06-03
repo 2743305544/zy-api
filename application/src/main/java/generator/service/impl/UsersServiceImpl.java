@@ -7,6 +7,7 @@ import aks.com.web.domain.common.req.UserReq;
 import aks.com.web.domain.common.req.UserUpdateReq;
 import aks.com.web.domain.common.req.UpdateEmailReq;
 import aks.com.web.domain.common.req.ResetPasswordReq;
+import aks.com.web.domain.common.vo.UserInfoVo;
 import aks.com.web.domain.common.vo.UserVo;
 import aks.com.web.enums.RoleEnum;
 import aks.com.web.enums.StatusEnum;
@@ -15,7 +16,13 @@ import aks.com.web.util.CaptchaUtils;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import generator.domain.MembershipLevels;
+import generator.domain.UserMemberships;
+import generator.domain.UserPoints;
 import generator.domain.Users;
+import generator.mapper.MembershipLevelsMapper;
+import generator.mapper.UserMembershipsMapper;
+import generator.mapper.UserPointsMapper;
 import generator.service.UsersService;
 import generator.mapper.UsersMapper;
 import jakarta.annotation.Resource;
@@ -37,7 +44,16 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
 
     @Resource
     private CaptchaUtils captchaUtils;
-    
+
+    @Resource
+    private UserPointsMapper userPointsMapper;
+
+    @Resource
+    private UserMembershipsMapper userMembershipsMapper;
+
+    @Resource
+    private MembershipLevelsMapper membershipLevelsMapper;
+
     @Resource
     private ApplicationEventPublisher eventPublisher;
 
@@ -174,6 +190,53 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
         return usersMapper.updateById(user) > 0;
     }
 
+    @Override
+    public UserInfoVo getUserInfoById(Long id) {
+        Users user = usersMapper.selectById(id);
+
+        if (user == null) {
+            throw new ServiceException("用户不存在", HttpCode.INTERNAL_SERVER_ERROR.getCode());
+        }
+
+        UserPoints userPoints = userPointsMapper.selectOne(new LambdaQueryWrapper<UserPoints>()
+                .eq(UserPoints::getUserId, id)
+        );
+
+        if (userPoints == null) {
+            throw new ServiceException("用户不存在", HttpCode.INTERNAL_SERVER_ERROR.getCode());
+        }
+
+        UserMemberships userMemberships = userMembershipsMapper.selectOne(new LambdaQueryWrapper<UserMemberships>()
+                .eq(UserMemberships::getUserId, id)
+        );
+
+        long levelId = 0;
+
+
+        if (userMemberships != null) {
+            levelId = userMemberships.getLevelId();
+        }
+
+        return UserInfoVo.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .email(user.getEmail())
+                .fullName(user.getFullName())
+                .phone(user.getPhone())
+                .status(user.getStatus())
+                .role(user.getRole())
+                .isDeleted(user.getIsDeleted())
+                .createdAt(user.getCreatedAt())
+                .updatedAt(user.getUpdatedAt())
+                .points(userPoints.getBalance())
+                .totalEarned(userPoints.getTotalEarned())
+                .totalConsumed(userPoints.getTotalConsumed())
+                .membershipLevelId(levelId)
+                .membershipExpireTime(userMemberships == null ? null : userMemberships.getExpiryDate())
+                .build();
+    }
+
     private boolean createNewUser(UserReq userReq) {
 
         // 创建新用户
@@ -191,7 +254,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
 
         // 保存用户
         int result = usersMapper.insert(user);
-        
+
         // 发布用户注册事件
         if (result > 0) {
             eventPublisher.publishEvent(new UserRegistrationEvent(this, user));

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import generator.domain.UserPoints;
 import generator.service.UserPointsService;
 import generator.mapper.UserPointsMapper;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +16,20 @@ import org.springframework.stereotype.Service;
 public class UserPointsServiceImpl extends ServiceImpl<UserPointsMapper, UserPoints>
     implements UserPointsService{
 
+    @Resource
+    private UserPointsMapper userPointsMapper;
+
+
+
+    @Override
+    public boolean updateUserPoints(Long userId, Integer points) {
+        UserPoints userPoints = userPointsMapper.selectById(userId);
+        if (userPoints == null) {
+            return false;
+        }
+        userPoints.setBalance(userPoints.getBalance() + points);
+        return userPointsMapper.updateById(userPoints) > 0;
+    }
 }
 
 

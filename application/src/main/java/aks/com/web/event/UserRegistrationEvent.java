@@ -3,6 +3,7 @@ package aks.com.web.event;
 import generator.domain.Users;
 import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
+import org.springframework.stereotype.Component;
 
 /**
  * 用户注册事件
