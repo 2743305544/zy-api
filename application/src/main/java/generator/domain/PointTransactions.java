@@ -9,11 +9,11 @@ import lombok.Data;
 
 /**
  * 
- * @TableName api_endpoints
+ * @TableName point_transactions
  */
-@TableName(value ="api_endpoints")
+@TableName(value ="point_transactions")
 @Data
-public class ApiEndpoints {
+public class PointTransactions {
     /**
      * 
      */
@@ -23,45 +23,40 @@ public class ApiEndpoints {
     /**
      * 
      */
-    private Long apiId;
+    private Long userId;
 
     /**
-     * 
+     * recharge-充值, consume-消费, reward-奖励, refund-退款
      */
-    private String path;
+    private String type;
 
     /**
-     * GET, POST, PUT, DELETE, etc.
+     * 积分变动数量，正数表示增加，负数表示减少
      */
-    private String method;
+    private Integer amount;
 
     /**
-     * 
+     * 交易后的积分余额
      */
-    private String summary;
+    private Integer balanceAfter;
 
     /**
-     * 
+     * 交易描述
      */
     private String description;
 
     /**
-     * 
+     * 关联ID，根据type不同关联不同表
      */
-    private String requestExample;
+    private Long referenceId;
 
     /**
-     * 
+     * 关联类型，如api_call, recharge_order等
      */
-    private String responseExample;
+    private String referenceType;
 
     /**
      * 
      */
     private Date createdAt;
-
-    /**
-     * 
-     */
-    private Date updatedAt;
 }

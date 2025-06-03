@@ -11,15 +11,14 @@
             <result property="method" column="method" />
             <result property="summary" column="summary" />
             <result property="description" column="description" />
-            <result property="requestSchema" column="request_schema" />
-            <result property="responseSchema" column="response_schema" />
-            <result property="isDeleted" column="is_deleted" />
+            <result property="requestExample" column="request_example" />
+            <result property="responseExample" column="response_example" />
             <result property="createdAt" column="created_at" />
             <result property="updatedAt" column="updated_at" />
     </resultMap>
 
     <sql id="Base_Column_List">
         id,api_id,path,method,summary,description,
-        request_schema,response_schema,is_deleted,created_at,updated_at
+        request_example,response_example,created_at,updated_at
     </sql>
 </mapper>

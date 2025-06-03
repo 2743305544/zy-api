@@ -41,11 +41,6 @@ public class ApiKeys {
     private Integer status;
 
     /**
-     * 0-not deleted, 1-deleted
-     */
-    private Integer isDeleted;
-
-    /**
      * 
      */
     private Date expiresAt;

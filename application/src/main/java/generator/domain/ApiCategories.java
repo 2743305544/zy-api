@@ -9,11 +9,11 @@ import lombok.Data;
 
 /**
  * 
- * @TableName api_endpoints
+ * @TableName api_categories
  */
-@TableName(value ="api_endpoints")
+@TableName(value ="api_categories")
 @Data
-public class ApiEndpoints {
+public class ApiCategories {
     /**
      * 
      */
@@ -23,22 +23,7 @@ public class ApiEndpoints {
     /**
      * 
      */
-    private Long apiId;
-
-    /**
-     * 
-     */
-    private String path;
-
-    /**
-     * GET, POST, PUT, DELETE, etc.
-     */
-    private String method;
-
-    /**
-     * 
-     */
-    private String summary;
+    private String name;
 
     /**
      * 
@@ -46,14 +31,14 @@ public class ApiEndpoints {
     private String description;
 
     /**
-     * 
+     * 父分类ID，用于构建分类层次
      */
-    private String requestExample;
+    private Long parentId;
 
     /**
-     * 
+     * 显示顺序
      */
-    private String responseExample;
+    private Integer displayOrder;
 
     /**
      * 

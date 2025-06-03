@@ -9,11 +9,11 @@ import lombok.Data;
 
 /**
  * 
- * @TableName api_endpoints
+ * @TableName user_memberships
  */
-@TableName(value ="api_endpoints")
+@TableName(value ="user_memberships")
 @Data
-public class ApiEndpoints {
+public class UserMemberships {
     /**
      * 
      */
@@ -23,37 +23,32 @@ public class ApiEndpoints {
     /**
      * 
      */
-    private Long apiId;
+    private Long userId;
 
     /**
      * 
      */
-    private String path;
-
-    /**
-     * GET, POST, PUT, DELETE, etc.
-     */
-    private String method;
+    private Long levelId;
 
     /**
      * 
      */
-    private String summary;
+    private Date startDate;
 
     /**
-     * 
+     * 会员到期时间，NULL表示永久有效
      */
-    private String description;
+    private Date expiryDate;
 
     /**
-     * 
+     * 0-不自动续费, 1-自动续费
      */
-    private String requestExample;
+    private Integer autoRenew;
 
     /**
-     * 
+     * 0-inactive, 1-active, 2-expired
      */
-    private String responseExample;
+    private Integer status;
 
     /**
      * 

@@ -9,11 +9,11 @@ import lombok.Data;
 
 /**
  * 
- * @TableName api_endpoints
+ * @TableName apis
  */
-@TableName(value ="api_endpoints")
+@TableName(value ="apis")
 @Data
-public class ApiEndpoints {
+public class Apis {
     /**
      * 
      */
@@ -23,22 +23,7 @@ public class ApiEndpoints {
     /**
      * 
      */
-    private Long apiId;
-
-    /**
-     * 
-     */
-    private String path;
-
-    /**
-     * GET, POST, PUT, DELETE, etc.
-     */
-    private String method;
-
-    /**
-     * 
-     */
-    private String summary;
+    private String name;
 
     /**
      * 
@@ -48,12 +33,32 @@ public class ApiEndpoints {
     /**
      * 
      */
-    private String requestExample;
+    private Long categoryId;
 
     /**
      * 
      */
-    private String responseExample;
+    private String version;
+
+    /**
+     * 
+     */
+    private String basePath;
+
+    /**
+     * 
+     */
+    private String documentationUrl;
+
+    /**
+     * 0-收费, 1-免费
+     */
+    private Integer isFree;
+
+    /**
+     * 0-draft, 1-published, 2-deprecated
+     */
+    private Integer status;
 
     /**
      * 

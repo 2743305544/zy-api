@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.UserPointsMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.UserPoints">
+            <id property="id" column="id" />
+            <result property="userId" column="user_id" />
+            <result property="balance" column="balance" />
+            <result property="totalEarned" column="total_earned" />
+            <result property="totalConsumed" column="total_consumed" />
+            <result property="lastUpdated" column="last_updated" />
+            <result property="createdAt" column="created_at" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,balance,total_earned,total_consumed,last_updated,
+        created_at
+    </sql>
+</mapper>

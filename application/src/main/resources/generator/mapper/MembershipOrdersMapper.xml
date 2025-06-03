@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.MembershipOrdersMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.MembershipOrders">
+            <id property="id" column="id" />
+            <result property="userId" column="user_id" />
+            <result property="levelId" column="level_id" />
+            <result property="orderNo" column="order_no" />
+            <result property="periodType" column="period_type" />
+            <result property="amount" column="amount" />
+            <result property="paymentMethod" column="payment_method" />
+            <result property="paymentStatus" column="payment_status" />
+            <result property="paymentTime" column="payment_time" />
+            <result property="startDate" column="start_date" />
+            <result property="expiryDate" column="expiry_date" />
+            <result property="createdAt" column="created_at" />
+            <result property="updatedAt" column="updated_at" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,level_id,order_no,period_type,amount,
+        payment_method,payment_status,payment_time,start_date,expiry_date,
+        created_at,updated_at
+    </sql>
+</mapper>

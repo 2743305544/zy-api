@@ -9,11 +9,11 @@ import lombok.Data;
 
 /**
  * 
- * @TableName api_endpoints
+ * @TableName user_points
  */
-@TableName(value ="api_endpoints")
+@TableName(value ="user_points")
 @Data
-public class ApiEndpoints {
+public class UserPoints {
     /**
      * 
      */
@@ -23,45 +23,30 @@ public class ApiEndpoints {
     /**
      * 
      */
-    private Long apiId;
+    private Long userId;
+
+    /**
+     * 当前可用积分余额
+     */
+    private Integer balance;
+
+    /**
+     * 历史累计获得的总积分
+     */
+    private Integer totalEarned;
+
+    /**
+     * 历史累计消费的总积分
+     */
+    private Integer totalConsumed;
 
     /**
      * 
      */
-    private String path;
-
-    /**
-     * GET, POST, PUT, DELETE, etc.
-     */
-    private String method;
-
-    /**
-     * 
-     */
-    private String summary;
-
-    /**
-     * 
-     */
-    private String description;
-
-    /**
-     * 
-     */
-    private String requestExample;
-
-    /**
-     * 
-     */
-    private String responseExample;
+    private Date lastUpdated;
 
     /**
      * 
      */
     private Date createdAt;
-
-    /**
-     * 
-     */
-    private Date updatedAt;
 }

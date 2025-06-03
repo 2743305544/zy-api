@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.ApiCallsMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.ApiCalls">
+            <id property="id" column="id" />
+            <result property="userId" column="user_id" />
+            <result property="apiId" column="api_id" />
+            <result property="endpointId" column="endpoint_id" />
+            <result property="apiKeyId" column="api_key_id" />
+            <result property="requestTime" column="request_time" />
+            <result property="responseTime" column="response_time" />
+            <result property="statusCode" column="status_code" />
+            <result property="pointsConsumed" column="points_consumed" />
+            <result property="ipAddress" column="ip_address" />
+            <result property="userAgent" column="user_agent" />
+            <result property="createdAt" column="created_at" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,api_id,endpoint_id,api_key_id,request_time,
+        response_time,status_code,points_consumed,ip_address,user_agent,
+        created_at
+    </sql>
+</mapper>

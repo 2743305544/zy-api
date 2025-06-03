@@ -10,6 +10,7 @@ import aks.com.web.domain.common.req.ResetPasswordReq;
 import aks.com.web.domain.common.vo.UserVo;
 import aks.com.web.enums.RoleEnum;
 import aks.com.web.enums.StatusEnum;
+import aks.com.web.event.UserRegistrationEvent;
 import aks.com.web.util.CaptchaUtils;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -18,6 +19,7 @@ import generator.domain.Users;
 import generator.service.UsersService;
 import generator.mapper.UsersMapper;
 import jakarta.annotation.Resource;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -35,6 +37,9 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
 
     @Resource
     private CaptchaUtils captchaUtils;
+    
+    @Resource
+    private ApplicationEventPublisher eventPublisher;
 
     @Override
     public UserVo login(String username, String password) {
@@ -149,7 +154,6 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
 
     @Override
     public Boolean resetPassword(ResetPasswordReq resetPasswordReq) {
-        // 验证邮箱验证码，同时确保验证码与提交的邮箱匹配
         captchaUtils.validateEmailCaptchaWithException(
             resetPasswordReq.getEmailCaptchaKey(),
             resetPasswordReq.getEmailCaptchaCode(),
@@ -187,6 +191,11 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
 
         // 保存用户
         int result = usersMapper.insert(user);
+        
+        // 发布用户注册事件
+        if (result > 0) {
+            eventPublisher.publishEvent(new UserRegistrationEvent(this, user));
+        }
 
         return result > 0;
     }

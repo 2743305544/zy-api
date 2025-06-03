@@ -9,11 +9,11 @@ import lombok.Data;
 
 /**
  * 
- * @TableName api_endpoints
+ * @TableName api_pricing
  */
-@TableName(value ="api_endpoints")
+@TableName(value ="api_pricing")
 @Data
-public class ApiEndpoints {
+public class ApiPricing {
     /**
      * 
      */
@@ -26,34 +26,14 @@ public class ApiEndpoints {
     private Long apiId;
 
     /**
-     * 
+     * 如果为NULL则表示整个API的默认定价
      */
-    private String path;
+    private Long endpointId;
 
     /**
-     * GET, POST, PUT, DELETE, etc.
+     * 每次调用消耗的积分数
      */
-    private String method;
-
-    /**
-     * 
-     */
-    private String summary;
-
-    /**
-     * 
-     */
-    private String description;
-
-    /**
-     * 
-     */
-    private String requestExample;
-
-    /**
-     * 
-     */
-    private String responseExample;
+    private Integer pointsPerCall;
 
     /**
      * 

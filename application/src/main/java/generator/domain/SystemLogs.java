@@ -9,11 +9,11 @@ import lombok.Data;
 
 /**
  * 
- * @TableName api_endpoints
+ * @TableName system_logs
  */
-@TableName(value ="api_endpoints")
+@TableName(value ="system_logs")
 @Data
-public class ApiEndpoints {
+public class SystemLogs {
     /**
      * 
      */
@@ -23,45 +23,35 @@ public class ApiEndpoints {
     /**
      * 
      */
-    private Long apiId;
+    private Long userId;
 
     /**
      * 
      */
-    private String path;
+    private String action;
 
     /**
-     * GET, POST, PUT, DELETE, etc.
+     * 操作的实体类型，如user, api, order等
      */
-    private String method;
+    private String entityType;
 
     /**
-     * 
+     * 操作的实体ID
      */
-    private String summary;
-
-    /**
-     * 
-     */
-    private String description;
+    private Long entityId;
 
     /**
      * 
      */
-    private String requestExample;
+    private String details;
 
     /**
      * 
      */
-    private String responseExample;
+    private String ipAddress;
 
     /**
      * 
      */
     private Date createdAt;
-
-    /**
-     * 
-     */
-    private Date updatedAt;
 }
