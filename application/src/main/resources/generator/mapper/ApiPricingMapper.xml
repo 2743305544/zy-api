@@ -9,11 +9,13 @@
             <result property="apiId" column="api_id" />
             <result property="endpointId" column="endpoint_id" />
             <result property="pointsPerCall" column="points_per_call" />
+            <result property="isDeleted" column="is_deleted" />
             <result property="createdAt" column="created_at" />
             <result property="updatedAt" column="updated_at" />
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,api_id,endpoint_id,points_per_call,created_at,updated_at
+        id,api_id,endpoint_id,points_per_call,is_deleted,created_at,
+        updated_at
     </sql>
 </mapper>

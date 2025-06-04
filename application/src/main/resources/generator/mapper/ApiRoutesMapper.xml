@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.ApiRoutesMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.ApiRoutes">
+            <id property="id" column="id" />
+            <result property="endpointId" column="endpoint_id" />
+            <result property="targetId" column="target_id" />
+            <result property="targetPath" column="target_path" />
+            <result property="targetMethod" column="target_method" />
+            <result property="weight" column="weight" />
+            <result property="isDeleted" column="is_deleted" />
+            <result property="createdAt" column="created_at" />
+            <result property="updatedAt" column="updated_at" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,endpoint_id,target_id,target_path,target_method,weight,
+        is_deleted,created_at,updated_at
+    </sql>
+</mapper>

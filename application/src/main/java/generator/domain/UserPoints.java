@@ -46,6 +46,11 @@ public class UserPoints {
     private Date lastUpdated;
 
     /**
+     * 0-not deleted, 1-deleted
+     */
+    private Integer isDeleted;
+
+    /**
      * 
      */
     private Date createdAt;

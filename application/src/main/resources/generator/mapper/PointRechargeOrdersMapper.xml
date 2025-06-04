@@ -13,12 +13,13 @@
             <result property="paymentMethod" column="payment_method" />
             <result property="paymentStatus" column="payment_status" />
             <result property="paymentTime" column="payment_time" />
+            <result property="isDeleted" column="is_deleted" />
             <result property="createdAt" column="created_at" />
             <result property="updatedAt" column="updated_at" />
     </resultMap>
 
     <sql id="Base_Column_List">
         id,user_id,order_no,amount,points,payment_method,
-        payment_status,payment_time,created_at,updated_at
+        payment_status,payment_time,is_deleted,created_at,updated_at
     </sql>
 </mapper>

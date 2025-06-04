@@ -36,6 +36,11 @@ public class ApiPricing {
     private Integer pointsPerCall;
 
     /**
+     * 0-not deleted, 1-deleted
+     */
+    private Integer isDeleted;
+
+    /**
      * 
      */
     private Date createdAt;

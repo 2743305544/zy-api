@@ -11,11 +11,12 @@
             <result property="totalEarned" column="total_earned" />
             <result property="totalConsumed" column="total_consumed" />
             <result property="lastUpdated" column="last_updated" />
+            <result property="isDeleted" column="is_deleted" />
             <result property="createdAt" column="created_at" />
     </resultMap>
 
     <sql id="Base_Column_List">
         id,user_id,balance,total_earned,total_consumed,last_updated,
-        created_at
+        is_deleted,created_at
     </sql>
 </mapper>

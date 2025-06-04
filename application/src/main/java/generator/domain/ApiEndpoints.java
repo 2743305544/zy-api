@@ -56,6 +56,11 @@ public class ApiEndpoints {
     private String responseExample;
 
     /**
+     * 0-not deleted, 1-deleted
+     */
+    private Integer isDeleted;
+
+    /**
      * 
      */
     private Date createdAt;

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.ApiTargetsMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.ApiTargets">
+            <id property="id" column="id" />
+            <result property="apiId" column="api_id" />
+            <result property="name" column="name" />
+            <result property="baseUrl" column="base_url" />
+            <result property="description" column="description" />
+            <result property="timeout" column="timeout" />
+            <result property="retryCount" column="retry_count" />
+            <result property="status" column="status" />
+            <result property="isDeleted" column="is_deleted" />
+            <result property="createdAt" column="created_at" />
+            <result property="updatedAt" column="updated_at" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,api_id,name,base_url,description,timeout,
+        retry_count,status,is_deleted,created_at,updated_at
+    </sql>
+</mapper>

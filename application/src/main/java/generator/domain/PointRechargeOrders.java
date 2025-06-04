@@ -57,6 +57,11 @@ public class PointRechargeOrders {
     private Date paymentTime;
 
     /**
+     * 0-not deleted, 1-deleted
+     */
+    private Integer isDeleted;
+
+    /**
      * 
      */
     private Date createdAt;

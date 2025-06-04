@@ -14,12 +14,14 @@
             <result property="documentationUrl" column="documentation_url" />
             <result property="isFree" column="is_free" />
             <result property="status" column="status" />
+            <result property="isDeleted" column="is_deleted" />
             <result property="createdAt" column="created_at" />
             <result property="updatedAt" column="updated_at" />
     </resultMap>
 
     <sql id="Base_Column_List">
         id,name,description,category_id,version,base_path,
-        documentation_url,is_free,status,created_at,updated_at
+        documentation_url,is_free,status,is_deleted,created_at,
+        updated_at
     </sql>
 </mapper>

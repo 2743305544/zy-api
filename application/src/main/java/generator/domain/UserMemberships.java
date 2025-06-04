@@ -51,6 +51,11 @@ public class UserMemberships {
     private Integer status;
 
     /**
+     * 0-not deleted, 1-deleted
+     */
+    private Integer isDeleted;
+
+    /**
      * 
      */
     private Date createdAt;

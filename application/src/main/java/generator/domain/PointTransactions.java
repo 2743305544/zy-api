@@ -56,6 +56,11 @@ public class PointTransactions {
     private String referenceType;
 
     /**
+     * 0-not deleted, 1-deleted
+     */
+    private Integer isDeleted;
+
+    /**
      * 
      */
     private Date createdAt;

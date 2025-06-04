@@ -13,11 +13,12 @@
             <result property="description" column="description" />
             <result property="referenceId" column="reference_id" />
             <result property="referenceType" column="reference_type" />
+            <result property="isDeleted" column="is_deleted" />
             <result property="createdAt" column="created_at" />
     </resultMap>
 
     <sql id="Base_Column_List">
         id,user_id,type,amount,balance_after,description,
-        reference_id,reference_type,created_at
+        reference_id,reference_type,is_deleted,created_at
     </sql>
 </mapper>

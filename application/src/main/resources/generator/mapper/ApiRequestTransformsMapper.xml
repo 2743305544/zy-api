@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.ApiRequestTransformsMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.ApiRequestTransforms">
+            <id property="id" column="id" />
+            <result property="routeId" column="route_id" />
+            <result property="transformType" column="transform_type" />
+            <result property="sourceParam" column="source_param" />
+            <result property="targetParam" column="target_param" />
+            <result property="transformRule" column="transform_rule" />
+            <result property="isRequired" column="is_required" />
+            <result property="defaultValue" column="default_value" />
+            <result property="isDeleted" column="is_deleted" />
+            <result property="createdAt" column="created_at" />
+            <result property="updatedAt" column="updated_at" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,route_id,transform_type,source_param,target_param,transform_rule,
+        is_required,default_value,is_deleted,created_at,updated_at
+    </sql>
+</mapper>

@@ -60,21 +60,6 @@ public class UserInfoVo {
      */
     private String role;
 
-    /**
-     * 0-not deleted, 1-deleted
-     */
-    private Integer isDeleted;
-
-    /**
-     *
-     */
-    private Date createdAt;
-
-    /**
-     *
-     */
-    private Date updatedAt;
-
 
     private Integer points;
 

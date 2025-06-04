@@ -16,6 +16,7 @@
             <result property="paymentTime" column="payment_time" />
             <result property="startDate" column="start_date" />
             <result property="expiryDate" column="expiry_date" />
+            <result property="isDeleted" column="is_deleted" />
             <result property="createdAt" column="created_at" />
             <result property="updatedAt" column="updated_at" />
     </resultMap>
@@ -23,6 +24,6 @@
     <sql id="Base_Column_List">
         id,user_id,level_id,order_no,period_type,amount,
         payment_method,payment_status,payment_time,start_date,expiry_date,
-        created_at,updated_at
+        is_deleted,created_at,updated_at
     </sql>
 </mapper>

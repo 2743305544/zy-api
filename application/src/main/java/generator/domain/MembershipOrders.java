@@ -72,6 +72,11 @@ public class MembershipOrders {
     private Date expiryDate;
 
     /**
+     * 0-not deleted, 1-deleted
+     */
+    private Integer isDeleted;
+
+    /**
      * 
      */
     private Date createdAt;

@@ -51,6 +51,11 @@ public class SystemLogs {
     private String ipAddress;
 
     /**
+     * 0-not deleted, 1-deleted
+     */
+    private Integer isDeleted;
+
+    /**
      * 
      */
     private Date createdAt;

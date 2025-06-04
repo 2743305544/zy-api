@@ -12,11 +12,12 @@
             <result property="entityId" column="entity_id" />
             <result property="details" column="details" />
             <result property="ipAddress" column="ip_address" />
+            <result property="isDeleted" column="is_deleted" />
             <result property="createdAt" column="created_at" />
     </resultMap>
 
     <sql id="Base_Column_List">
         id,user_id,action,entity_type,entity_id,details,
-        ip_address,created_at
+        ip_address,is_deleted,created_at
     </sql>
 </mapper>

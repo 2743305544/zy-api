@@ -1,14 +1,13 @@
 package aks.com.web.controller;
 
 import aks.com.sdk.resp.RespEntity;
+import aks.com.web.domain.common.req.UserInfoReq;
 import aks.com.web.domain.common.vo.UserInfoVo;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import generator.domain.Users;
 import generator.service.UsersService;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,8 +31,22 @@ public class AdminUserController {
 
     @GetMapping("/info")
     @SaCheckPermission("admin")
-    public RespEntity<UserInfoVo> info(Long id) {
+    public RespEntity<UserInfoVo> info(@RequestParam("id") Long id) {
         return RespEntity.success(usersService.getUserInfoById(id));
     }
+
+    @PutMapping("/update")
+    @SaCheckPermission("admin")
+    public RespEntity<Boolean> update( @RequestBody UserInfoReq userInfoReq) {
+
+        return RespEntity.success(usersService.updateUserInfo((userInfoReq)));
+    }
+
+    @DeleteMapping("/delete")
+    @SaCheckPermission("admin")
+    public RespEntity<Boolean> delete(@RequestParam("id") Long id) {
+        return RespEntity.success(usersService.deleteUserInfo(id));
+    }
+
 
 }

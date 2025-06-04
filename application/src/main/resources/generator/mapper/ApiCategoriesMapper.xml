@@ -10,12 +10,13 @@
             <result property="description" column="description" />
             <result property="parentId" column="parent_id" />
             <result property="displayOrder" column="display_order" />
+            <result property="isDeleted" column="is_deleted" />
             <result property="createdAt" column="created_at" />
             <result property="updatedAt" column="updated_at" />
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,name,description,parent_id,display_order,created_at,
-        updated_at
+        id,name,description,parent_id,display_order,is_deleted,
+        created_at,updated_at
     </sql>
 </mapper>

@@ -2,6 +2,7 @@ package generator.service;
 
 import aks.com.web.domain.common.req.ResetPasswordReq;
 import aks.com.web.domain.common.req.UpdateEmailReq;
+import aks.com.web.domain.common.req.UserInfoReq;
 import aks.com.web.domain.common.req.UserReq;
 import aks.com.web.domain.common.req.UserUpdateReq;
 import aks.com.web.domain.common.vo.UserInfoVo;
@@ -29,4 +30,20 @@ public interface UsersService extends IService<Users> {
     Boolean resetPassword(ResetPasswordReq resetPasswordReq);
 
     UserInfoVo getUserInfoById(Long id);
+
+    /**
+     * Update user information by admin
+     *
+     * @param userInfoReq User information request
+     * @return true if update successful, false otherwise
+     */
+    Boolean updateUserInfo(UserInfoReq userInfoReq);
+
+    /**
+     * Delete user by ID
+     *
+     * @param id User ID to delete
+     * @return true if deletion successful, false otherwise
+     */
+    Boolean deleteUserInfo(Long id);
 }
