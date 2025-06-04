@@ -260,6 +260,27 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
         return result > 0;
     }
 
+    private boolean createNewUser(AddUserReq userReq) {
+
+        // 创建新用户
+        Users user = new Users();
+        user.setUsername(userReq.getUsername());
+        user.setPassword(userReq.getPassword());
+        user.setEmail(userReq.getEmail());
+        user.setFullName(userReq.getFullName());
+        user.setPhone(userReq.getPhone());
+        user.setRole(userReq.getRole());
+        user.setStatus(StatusEnum.NORMAL.getCode());
+        user.setIsDeleted(0);
+        user.setCreatedAt(new java.util.Date());
+        user.setUpdatedAt(new java.util.Date());
+
+        // 保存用户
+        int result = usersMapper.insert(user);
+
+        return result > 0;
+    }
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean updateUserInfo(UserInfoReq userInfoReq) {
@@ -285,26 +306,31 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
         if (id == null) {
             throw new ServiceException("用户ID不能为空", HttpCode.INTERNAL_SERVER_ERROR.getCode());
         }
-        
+
         // 检查用户是否存在
         Users existingUser = usersMapper.selectById(id);
         if (existingUser == null) {
             throw new ServiceException("用户不存在", HttpCode.INTERNAL_SERVER_ERROR.getCode());
         }
-        
+
         // 删除用户会员信息
         deleteUserMembership(id);
-        
+
         // 删除用户积分信息
         deleteUserPoints(id);
-        
+
         // 删除用户本身
         int result = usersMapper.deleteById(id);
         if (result <= 0) {
             throw new ServiceException("删除用户失败", HttpCode.INTERNAL_SERVER_ERROR.getCode());
         }
-        
+
         return true;
+    }
+
+    @Override
+    public Boolean addUser(AddUserReq addUserReq) {
+        return createNewUser(addUserReq);
     }
 
     /**
@@ -315,13 +341,13 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
         // 查找用户当前会员信息
         UserMemberships userMembership = userMembershipsMapper.selectOne(new LambdaQueryWrapper<UserMemberships>()
                 .eq(UserMemberships::getUserId, userId));
-        
+
         // 如果存在会员信息，则删除
         if (userMembership != null) {
             userMembershipsMapper.deleteById(userMembership.getId());
         }
     }
-    
+
     /**
      * 删除用户积分信息
      * @param userId 用户ID
@@ -330,7 +356,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
         // 查找用户积分信息
         UserPoints userPoints = userPointsMapper.selectOne(new LambdaQueryWrapper<UserPoints>()
                 .eq(UserPoints::getUserId, userId));
-        
+
         // 如果存在积分信息，则删除
         if (userPoints != null) {
             userPointsMapper.deleteById(userPoints.getId());

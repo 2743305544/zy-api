@@ -1,10 +1,6 @@
 package generator.service;
 
-import aks.com.web.domain.common.req.ResetPasswordReq;
-import aks.com.web.domain.common.req.UpdateEmailReq;
-import aks.com.web.domain.common.req.UserInfoReq;
-import aks.com.web.domain.common.req.UserReq;
-import aks.com.web.domain.common.req.UserUpdateReq;
+import aks.com.web.domain.common.req.*;
 import aks.com.web.domain.common.vo.UserInfoVo;
 import aks.com.web.domain.common.vo.UserVo;
 import generator.domain.Users;
@@ -46,4 +42,6 @@ public interface UsersService extends IService<Users> {
      * @return true if deletion successful, false otherwise
      */
     Boolean deleteUserInfo(Long id);
+
+    Boolean addUser(AddUserReq addUserReq);
 }

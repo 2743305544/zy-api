@@ -1,6 +1,7 @@
 package aks.com.web.service;
 
 import cn.dev33.satoken.stp.StpInterface;
+import cn.dev33.satoken.stp.StpUtil;
 import generator.domain.Users;
 import generator.service.UsersService;
 import jakarta.annotation.Resource;
@@ -24,6 +25,7 @@ public class StpInterfaceImpl implements StpInterface {
      */
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
+        StpUtil.checkLogin();
         Users user = usersService.getById((Long)loginId);
         List<String> permissionList = new ArrayList<>();
         permissionList.add(user.getRole());

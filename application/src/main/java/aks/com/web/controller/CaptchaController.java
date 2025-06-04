@@ -42,7 +42,6 @@ public class CaptchaController {
                 .captchaKey(captchaKey)
                 .captchaImage(specCaptcha.toBase64())
                 .build();
-
         return RespEntity.success(captchaVo);
     }
 }

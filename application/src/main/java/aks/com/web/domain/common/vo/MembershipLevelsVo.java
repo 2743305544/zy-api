@@ -1,28 +1,29 @@
-package generator.domain;
+package aks.com.web.domain.common.vo;
 
-import aks.com.web.domain.common.vo.MembershipLevelsVo;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.math.BigDecimal;
-import java.util.Date;
+import generator.domain.MembershipLevels;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 /**
- *
- * @TableName membership_levels
+ * @author Shi Yi
+ * @date 2025/6/4
+ * @Description
  */
-@TableName(value ="membership_levels")
-@Accessors(chain = true)
 @Data
-public class MembershipLevels {
+@AllArgsConstructor
+@NoArgsConstructor
+public class MembershipLevelsVo {
+
     /**
      *
      */
-    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
@@ -60,20 +61,14 @@ public class MembershipLevels {
      */
     private Integer isActive;
 
-    /**
-     *
-     */
-    private Date createdAt;
 
-    /**
-     *
-     */
-    private Date updatedAt;
+    public MembershipLevelsVo(MembershipLevels membershipLevels) {
+        BeanUtils.copyProperties(membershipLevels, this);
+    }
 
-
-    public MembershipLevelsVo toVo() {
-        MembershipLevelsVo vo = new MembershipLevelsVo();
-        BeanUtils.copyProperties(this, vo);
-        return vo;
+    public MembershipLevels toEntity() {
+        MembershipLevels entity = new MembershipLevels();
+        BeanUtils.copyProperties(this, entity);
+        return entity;
     }
 }

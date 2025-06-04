@@ -10,4 +10,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface MembershipLevelsService extends IService<MembershipLevels> {
 
+    Boolean removeMembershipLevel(String id);
+
+    Boolean enableMembershipLevel(String id, Boolean enable);
 }

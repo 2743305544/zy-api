@@ -1,12 +1,14 @@
 package aks.com.web.controller;
 
 import aks.com.sdk.resp.RespEntity;
+import aks.com.web.domain.common.req.AddUserReq;
 import aks.com.web.domain.common.req.UserInfoReq;
 import aks.com.web.domain.common.vo.UserInfoVo;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import generator.domain.Users;
 import generator.service.UsersService;
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,7 +39,7 @@ public class AdminUserController {
 
     @PutMapping("/update")
     @SaCheckPermission("admin")
-    public RespEntity<Boolean> update( @RequestBody UserInfoReq userInfoReq) {
+    public RespEntity<Boolean> update(@Valid @RequestBody UserInfoReq userInfoReq) {
 
         return RespEntity.success(usersService.updateUserInfo((userInfoReq)));
     }
@@ -46,6 +48,12 @@ public class AdminUserController {
     @SaCheckPermission("admin")
     public RespEntity<Boolean> delete(@RequestParam("id") Long id) {
         return RespEntity.success(usersService.deleteUserInfo(id));
+    }
+
+    @PostMapping("/add")
+    @SaCheckPermission("admin")
+    public RespEntity<Boolean> add(@Valid @RequestBody AddUserReq addUserReq) {
+        return RespEntity.success(usersService.addUser(addUserReq));
     }
 
 
